@@ -38,3 +38,20 @@ The deprecated `kotlinOptions { jvmTarget = "17" }` block has been removed.
 ## V3 compatibility fix
 Removed explicit `androidx.compose.foundation.layout.weight` imports from `AskScreen.kt` and `HomeScreen.kt`.
 `Modifier.weight(...)` is resolved from the implicit `RowScope` / `ColumnScope` receiver.
+
+## V4 navigation hierarchy
+Top-level destinations keep the persistent bottom navigation:
+- Home
+- Check
+- Ask
+- History
+- Profile
+
+Detail/sub-flow screens intentionally hide the bottom navigation and use a back action:
+- Screenshot Check
+- Link Check
+- Camera Assist
+- Document AI
+- Next Action
+
+The Check tab now opens a dedicated Check Hub instead of jumping directly into Screenshot Check.

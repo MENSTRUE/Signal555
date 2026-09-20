@@ -21,6 +21,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -36,65 +37,95 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.wafa.signal555.ui.components.AppTopBar
+import com.wafa.signal555.ui.components.BottomDestination
+import com.wafa.signal555.ui.components.SignalBottomBar
 import com.wafa.signal555.ui.theme.SignalBlack
 import com.wafa.signal555.ui.theme.SignalMuted
 import com.wafa.signal555.ui.theme.SignalRed
 import com.wafa.signal555.ui.theme.SignalSurface
 
 @Composable
-fun AskScreen(onBack: () -> Unit) {
+fun AskScreen(
+    onHome: () -> Unit,
+    onCheck: () -> Unit,
+    onHistory: () -> Unit,
+    onProfile: () -> Unit
+) {
     var input by remember { mutableStateOf("") }
 
-    Column(modifier = Modifier.fillMaxSize().background(SignalSurface)) {
-        AppTopBar(title = "Ask 555", onBack = onBack)
-        Column(
-            modifier = Modifier
-                .weight(1f)
-                .verticalScroll(rememberScrollState())
-                .padding(18.dp)
-        ) {
-            Text("AI Assistant", color = SignalBlack, fontWeight = FontWeight.Black, fontSize = 24.sp)
-            Text("Memahami konteks, bukan sekadar menjawab.", color = SignalMuted, fontSize = 12.sp)
-            Spacer(Modifier.height(24.dp))
-
-            MessageBubble(
-                text = "Ada yang ingin kamu periksa, pahami, atau putuskan? Kirim konteksnya dan saya bantu menguraikannya.",
-                isUser = false
-            )
-            MessageBubble(
-                text = "Saya dapat pesan dengan link yang mencurigakan. Apa yang sebaiknya saya cek dulu?",
-                isUser = true
-            )
-            MessageBubble(
-                text = "Mulai dari tiga hal: identitas pengirim, alamat domain, dan apakah pesannya mendesak atau meminta data sensitif. Jangan buka tautan sebelum ketiganya masuk akal.",
-                isUser = false
+    Scaffold(
+        containerColor = SignalSurface,
+        bottomBar = {
+            SignalBottomBar(
+                selected = BottomDestination.Ask,
+                onHome = onHome,
+                onCheck = onCheck,
+                onAsk = {},
+                onHistory = onHistory,
+                onProfile = onProfile
             )
         }
-
-        Row(
-            modifier = Modifier.fillMaxWidth().background(Color.White).padding(12.dp),
-            verticalAlignment = Alignment.CenterVertically
+    ) { padding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+                .background(SignalSurface)
         ) {
-            TextField(
-                value = input,
-                onValueChange = { input = it },
-                modifier = Modifier.weight(1f),
-                placeholder = { Text("Tanya sesuatu...", fontSize = 13.sp) },
-                shape = RoundedCornerShape(18.dp),
-                colors = TextFieldDefaults.colors(
-                    focusedContainerColor = Color(0xFFF1F2F3),
-                    unfocusedContainerColor = Color(0xFFF1F2F3),
-                    focusedIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent
-                )
-            )
-            Spacer(Modifier.size(8.dp))
-            Box(
-                modifier = Modifier.size(48.dp).background(SignalRed, CircleShape),
-                contentAlignment = Alignment.Center
+            AppTopBar(title = "Ask 555")
+
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .verticalScroll(rememberScrollState())
+                    .padding(18.dp)
             ) {
-                IconButton(onClick = { input = "" }) {
-                    Icon(Icons.Outlined.Send, null, tint = Color.White)
+                Text("AI Assistant", color = SignalBlack, fontWeight = FontWeight.Black, fontSize = 24.sp)
+                Text("Memahami konteks, bukan sekadar menjawab.", color = SignalMuted, fontSize = 12.sp)
+                Spacer(Modifier.height(24.dp))
+
+                MessageBubble(
+                    text = "Ada yang ingin kamu periksa, pahami, atau putuskan? Kirim konteksnya dan saya bantu menguraikannya.",
+                    isUser = false
+                )
+                MessageBubble(
+                    text = "Saya dapat pesan dengan link yang mencurigakan. Apa yang sebaiknya saya cek dulu?",
+                    isUser = true
+                )
+                MessageBubble(
+                    text = "Mulai dari tiga hal: identitas pengirim, alamat domain, dan apakah pesannya mendesak atau meminta data sensitif. Jangan buka tautan sebelum ketiganya masuk akal.",
+                    isUser = false
+                )
+            }
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color.White)
+                    .padding(12.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                TextField(
+                    value = input,
+                    onValueChange = { input = it },
+                    modifier = Modifier.weight(1f),
+                    placeholder = { Text("Tanya sesuatu...", fontSize = 13.sp) },
+                    shape = RoundedCornerShape(18.dp),
+                    colors = TextFieldDefaults.colors(
+                        focusedContainerColor = Color(0xFFF1F2F3),
+                        unfocusedContainerColor = Color(0xFFF1F2F3),
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent
+                    )
+                )
+                Spacer(Modifier.size(8.dp))
+                Box(
+                    modifier = Modifier.size(48.dp).background(SignalRed, CircleShape),
+                    contentAlignment = Alignment.Center
+                ) {
+                    IconButton(onClick = { input = "" }) {
+                        Icon(Icons.Outlined.Send, null, tint = Color.White)
+                    }
                 }
             }
         }

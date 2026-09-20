@@ -50,8 +50,10 @@ import com.wafa.signal555.ui.theme.SignalSurface
 @Composable
 fun HomeScreen(
     onScreenshot: () -> Unit,
+    onLink: () -> Unit,
     onCamera: () -> Unit,
     onDocument: () -> Unit,
+    onCheck: () -> Unit,
     onAsk: () -> Unit,
     onHistory: () -> Unit,
     onProfile: () -> Unit
@@ -62,7 +64,7 @@ fun HomeScreen(
             SignalBottomBar(
                 selected = BottomDestination.Home,
                 onHome = {},
-                onCheck = onScreenshot,
+                onCheck = onCheck,
                 onAsk = onAsk,
                 onHistory = onHistory,
                 onProfile = onProfile
@@ -144,7 +146,7 @@ fun HomeScreen(
                     icon = Icons.Outlined.Link,
                     title = "Link Check",
                     subtitle = "Cek sebelum kamu membuka tautan",
-                    onClick = onScreenshot,
+                    onClick = onLink,
                     modifier = Modifier.weight(1f)
                 )
                 QuickAssistCard(
