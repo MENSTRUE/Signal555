@@ -14,8 +14,8 @@ android {
         applicationId = "com.wafa.signal555"
         minSdk = 26
         targetSdk = 35
-        versionCode = 2
-        versionName = "1.0.3"
+        versionCode = 3
+        versionName = "1.1.0"
     }
 
     buildFeatures {
@@ -49,6 +49,7 @@ dependencies {
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.foundation:foundation")
+    implementation("com.google.mlkit:text-recognition:16.0.1")
 
     debugImplementation("androidx.compose.ui:ui-tooling")
 }

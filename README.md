@@ -55,3 +55,13 @@ Detail/sub-flow screens intentionally hide the bottom navigation and use a back 
 - Next Action
 
 The Check tab now opens a dedicated Check Hub instead of jumping directly into Screenshot Check.
+
+## V5 — Local Screenshot Check
+Screenshot Check is now functional and offline-first:
+- Image selection uses Android's document/gallery picker.
+- OCR uses bundled ML Kit Text Recognition (`com.google.mlkit:text-recognition:16.0.1`).
+- Extracted text is analyzed by an explainable local risk engine.
+- No screenshot or OCR text is sent to an API/server by this feature.
+- The risk score is an indicator, not a definitive fraud classification.
+
+Other AI surfaces (Ask, Camera Assist, Document AI, Link Check) are still prototype/mock flows in this version and will be implemented incrementally.
