@@ -53,6 +53,8 @@ import androidx.compose.ui.unit.sp
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
+import com.wafa.signal555.data.local.LocalHistoryItem
+import com.wafa.signal555.data.local.LocalHistoryStore
 import com.wafa.signal555.data.local.LocalRiskAnalyzer
 import com.wafa.signal555.data.local.LocalRiskResult
 import com.wafa.signal555.data.local.RiskLevel
@@ -115,9 +117,24 @@ fun ScreenshotCheckScreen(
                         "Tidak ada teks yang terbaca. Gunakan screenshot yang lebih jelas atau tidak terlalu kecil."
                     )
                 } else {
+                    val analysis = LocalRiskAnalyzer.analyze(extracted)
                     state = ScreenshotState.Success(
                         extractedText = extracted,
-                        result = LocalRiskAnalyzer.analyze(extracted)
+                        result = analysis
+                    )
+                    val status = when (analysis.level) {
+                        RiskLevel.HIGH -> "Risiko tinggi"
+                        RiskLevel.MEDIUM -> "Perlu perhatian"
+                        RiskLevel.LOW -> "Risiko rendah"
+                    }
+                    LocalHistoryStore.add(
+                        context,
+                        LocalHistoryItem(
+                            type = "screenshot",
+                            title = "Screenshot check",
+                            status = status,
+                            score = analysis.score
+                        )
                     )
                 }
             }
