@@ -95,7 +95,7 @@ fun ProfileScreen(
                 ProfileItem(Icons.Outlined.Palette, "Appearance", "Tema dan tampilan aplikasi")
                 ProfileItem(Icons.Outlined.Language, "Language", "Bahasa Indonesia / English")
                 ProfileItem(Icons.Outlined.Lock, "Data & Privacy", "Kelola data lokal dan izin")
-                ProfileItem(Icons.Outlined.Info, "About", "555 Assist v1.0.3")
+                ProfileItem(Icons.Outlined.Info, "About", "555 Assist v1.4.0")
             }
         }
     }

@@ -124,7 +124,7 @@ fun CheckScreen(
                     QuickAssistCard(
                         icon = Icons.Outlined.Description,
                         title = "Document AI",
-                        subtitle = "Ringkas dan pahami dokumen",
+                        subtitle = "Baca, ringkas, dan cari isi PDF secara lokal",
                         onClick = onDocument,
                         modifier = Modifier.weight(1f)
                     )

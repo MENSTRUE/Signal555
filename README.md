@@ -3,8 +3,6 @@
 Minimal Android + AI Assistant concept inspired by the technological language of Kamen Rider Faiz without turning the app into a literal Rider UI.
 
 ## Compatibility
-This revision is intentionally pinned for Android Studio installations whose latest supported Android Gradle Plugin is **AGP 8.11.1**.
-
 - Android Gradle Plugin: **8.11.1**
 - Gradle: **8.13**
 - Kotlin: **2.3.21**
@@ -14,15 +12,15 @@ This revision is intentionally pinned for Android Studio installations whose lat
 - minSdk: **26**
 - Jetpack Compose BOM: **2025.05.00**
 - Activity Compose: **1.10.1**
-- App version: **1.2.0**
+- App version: **1.4.0**
 
 ## Run
 1. Extract the ZIP to a fresh folder.
 2. Open the **Signal555Android** folder in Android Studio.
-3. Set **Gradle JDK = 17** in Settings > Build, Execution, Deployment > Build Tools > Gradle.
+3. Set **Gradle JDK = 17**.
 4. Let Gradle Sync finish.
-5. Install Android SDK Platform **35** if Android Studio asks for it.
-6. Run the `app` configuration on an emulator or Android device.
+5. Install Android SDK Platform **35** if requested.
+6. Run the `app` configuration.
 
 ## Navigation
 Top-level destinations keep persistent bottom navigation:
@@ -32,55 +30,56 @@ Top-level destinations keep persistent bottom navigation:
 - History
 - Profile
 
-Detail/sub-flow screens hide the bottom navigation and use a back action:
+Detail/sub-flow screens hide bottom navigation and use back navigation:
 - Screenshot Check
 - Link Check
 - Camera Assist
 - Document AI
 - Next Action
 
-## V5 — Local Screenshot Check
-Screenshot Check is functional and offline-first:
-- Image selection uses Android's gallery/document picker.
-- OCR uses bundled ML Kit Text Recognition (`com.google.mlkit:text-recognition:16.0.1`).
-- Extracted text is analyzed by an explainable local risk engine.
-- Screenshot and OCR text are not sent to a server.
-- Results are saved to local History.
+## Real local features
+### V5 — Screenshot Check
+- Gallery image picker
+- Bundled ML Kit OCR
+- Explainable local risk analysis
+- Results saved to local History
 
-## V6 — Local Link Check + Persistent History
-Link Check is now functional without opening the URL:
-- Normalizes pasted domains/URLs locally.
-- Checks HTTP vs HTTPS.
-- Detects IP-address URLs, Punycode, shorteners, suspicious TLDs, excessive subdomains/hyphens, sensitive lure words, non-standard ports, and very long URLs.
-- Produces an explainable local risk indicator and safety guidance.
-- Does **not** perform reputation/malware lookups and therefore does not claim a URL is definitively safe or malicious.
-- No INTERNET permission is added for the local checker.
+### V6 — Link Check + History
+- Local URL normalization and heuristic inspection
+- HTTPS, IP URL, Punycode, shortener, TLD, subdomain, port and lure-word checks
+- Persistent local History using SharedPreferences
+- No network reputation lookup
 
-History is now persistent on-device for the MVP:
-- Screenshot Check results are saved locally.
-- Link Check results are saved locally.
-- History can be cleared from the History screen.
-- Storage currently uses SharedPreferences to keep the MVP dependency-light; it can be migrated to Room when richer history/query features are needed.
+### V7 — Camera Assist
+- CameraX live preview
+- Runtime camera permission
+- Rear-camera photo capture
+- Torch toggle
+- Bundled ML Kit OCR
+- Local risk analysis
+- Camera results saved to History
+
+### V8 — Local Document AI
+Document AI is now functional for PDF files without a server:
+- Android system PDF picker
+- PDF pages rendered locally with `PdfRenderer`
+- Bundled ML Kit OCR for digital or scanned PDF pages
+- Up to **12 pages** analyzed per run to keep mobile processing reasonable
+- Extractive local summary (does not invent new facts)
+- Local keyword extraction
+- Local in-document search
+- Heuristic action-item extraction
+- Document analysis saved to History
+- No INTERNET permission is required for this flow
 
 ## Still prototype/mock
 - Ask Assistant / local LLM
-- Camera Assist
-- Document AI / PDF parsing
-- Network reputation lookups
+- Rich Next Action execution
+- Online reputation/malware lookups
 
-## Notes
-The local risk scores are explainable heuristics. They are safety indicators, not definitive fraud, malware, or trust classifications.
-
-
-## V7 — Local Camera Assist (v1.3.0)
-Camera Assist now uses CameraX for a real live camera preview and photo capture. Captured photos are processed on-device with the bundled ML Kit text recognizer, then passed to the same explainable local risk engine used by Screenshot Check. Camera results are saved to local History.
-
-- CameraX live preview and rear-camera capture
-- Runtime camera permission
-- Torch toggle
-- Bundled/offline OCR
-- Local risk analysis
-- Camera results in persistent History
-- No INTERNET permission added
-
-Current real local features: Screenshot Check, Link Check, Camera Assist, History. Ask and Document AI are still prototype flows.
+## Important notes
+The current "AI" layer is intentionally mixed:
+- ML Kit OCR is an on-device machine-learning component.
+- Risk analysis, URL inspection, document summarization, keyword extraction and action-item extraction are deterministic local heuristics/algorithms.
+- The app does **not** yet include an on-device generative LLM.
+- Risk scores are indicators, not definitive fraud/malware verdicts.

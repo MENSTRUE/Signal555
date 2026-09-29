@@ -124,7 +124,7 @@ private fun EmptyHistory() {
         Icon(Icons.Outlined.History, null, tint = SignalMuted, modifier = Modifier.size(38.dp))
         Spacer(Modifier.height(10.dp))
         Text("Belum ada pemeriksaan", color = SignalBlack, fontWeight = FontWeight.SemiBold)
-        Text("Hasil Screenshot, Link, dan Camera Check akan muncul di sini.", color = SignalMuted, fontSize = 11.sp)
+        Text("Hasil Screenshot, Link, Camera, dan Document Check akan muncul di sini.", color = SignalMuted, fontSize = 11.sp)
     }
 }
 
