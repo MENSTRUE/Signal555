@@ -12,7 +12,7 @@ Minimal Android + AI Assistant concept inspired by the technological language of
 - minSdk: **26**
 - Jetpack Compose BOM: **2025.05.00**
 - Activity Compose: **1.10.1**
-- App version: **1.4.0**
+- App version: **1.5.0**
 
 ## Run
 1. Extract the ZIP to a fresh folder.
@@ -83,3 +83,10 @@ The current "AI" layer is intentionally mixed:
 - Risk analysis, URL inspection, document summarization, keyword extraction and action-item extraction are deterministic local heuristics/algorithms.
 - The app does **not** yet include an on-device generative LLM.
 - Risk scores are indicators, not definitive fraud/malware verdicts.
+
+
+## V9 — Local contextual assistant
+
+Ask 555 is now functional offline. It uses deterministic intent detection and local history context to answer questions about the latest check, risk score, links, screenshots, camera results, documents, and safe next actions. Chat messages are persisted locally with SharedPreferences.
+
+Important: this is **not an LLM yet**. There is no Gemma/ONNX generative model bundled in V9, so free-form generation is intentionally limited.
